@@ -3,21 +3,23 @@ from setuptools import setup
 
 # Only install package dependencies in install_requires
 setup(
-    name='create-py-cli',
+    name='maggport',
     version='1.0.0',
-    description='Blueprint for python CLI tool',
+    description='A mongodb aggregate export tool',
     entry_points={
         'console_scripts': [
-            'cpc = src.main:entry_point'
+            'maggport = src.main:entry_point'
         ]
     },
-    url='https://github.com/ccavales3/create-py-cli',
+    url='https://github.com/ccavales3/maggport',
     author='Caesar Cavales',
     author_email='c.cavales3@gmail.com',
     license='MIT',
     packages=find_packages(exclude=['tests']),
     install_requires=[
-            'click==8.0.1'      # https://github.com/pallets/click
+            'click==8.0.1',      # https://github.com/pallets/click
+            'pymongo==3.11.4',   # https://github.com/mongodb/mongo-python-driver
+            'pandas==1.2.1'      # https://github.com/pandas-dev/pandas
     ],
     zip_safe=False
 )

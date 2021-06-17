@@ -43,7 +43,7 @@ install-prod:
 
 install-local: clean-build
 	@echo "${BLUE}Uninstalling installed package${NC}"
-	@pip uninstall create-py-cli -y
+	@pip uninstall maggport -y
 	@echo "${BLUE}Installing package locally${NC}"
 	@python setup.py install
 
@@ -66,11 +66,11 @@ quality:
 	@echo "${BLUE}Running safety dependency checker${NC}"
 	@safety check -r requirements.txt -r dev-requirements.txt
 	@echo "${BLUE}Running flake8 against source and test files${NC}"
-	@flake8 create-py-cli/ tests/
+	@flake8 src/ tests/
 	@echo "${BLUE}Running pylint against source and test files${NC}"
-	@pylint create-py-cli/ tests/
+	@pylint src/ tests/
 	@echo "${BLUE}Running mypy against source and test files${NC}"
-	@mypy --config-file setup.cfg create-py-cli/ tests/
+	@mypy --config-file setup.cfg src/ tests/
 	@echo "${BLUE}Running yamllint against source and test files${NC}"
 	@yamllint .
 
@@ -85,11 +85,11 @@ quality-diff:
 	@echo "${BLUE}Running safety dependency checker${NC}"
 	@-safety check -r requirements.txt -r dev-requirements.txt
 	@echo "${BLUE}Running flake8 against source and test files${NC}"
-	@-flake8 create-py-cli/ tests/
+	@-flake8 src/ tests/
 	@echo "${BLUE}Running pylint against source and test files${NC}"
-	@-pylint create-py-cli/ tests/
+	@-pylint src/ tests/
 	@echo "${BLUE}Running mypy against source and test files${NC}"
-	@-mypy --config-file setup.cfg create-py-cli/ tests/
+	@-mypy --config-file setup.cfg src/ tests/
 	@echo "${BLUE}Running yamllint against source and test files${NC}"
 	@-yamllint .
 
@@ -118,7 +118,7 @@ help:
 	@echo "		compile-prod	: Create requirements.txt from setup.py"
 	@echo "		install-dev		: Install development dependencies"
 	@echo "		install-prod	: Install production dependencies"
-	@echo "		install-local	: Install create-py-cli as a local CLI tool"
+	@echo "		install-local	: Install maggport as a local CLI tool"
 	@echo "		format			: Format files with black and isort"
 	@echo "		quality			: Check style on all files with flake8, pylint, mypy, bandit, detect-secrets, and safety"
 	@echo "		quality-diff	: Check diff style on all files with flake8, pylint, mypy, bandit, detect-secrets, and safety"

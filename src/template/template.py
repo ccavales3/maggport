@@ -1,5 +1,5 @@
 """
-This file is the entry point for the create-py-cli package
+This file is the entry point for the maggport package
 
 Example:
     cpc template --name 'Caesar' --choose
