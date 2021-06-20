@@ -31,6 +31,7 @@ pip install maggport
 | -q/--pipeline         | Pipeline to run                   |
 | -f/--pipeline-path    | Path of pipeline if saved in file |
 
+---
 **host**: sample_host  
 **port**: 8080  
 **db**: food  
