@@ -6,6 +6,7 @@ coverage-badge==1.0.1   # https://github.com/dbrgn/coverage-badge
 # dependency-check==0.5.0 # https://github.com/jhermann/dependency-check-py
 detect-secrets==1.1.0   # https://github.com/Yelp/detect-secrets
 flake8==3.9.2           # https://gitlab.com/pycqa/flake8
+mongomock==3.23.0       # https://github.com/mongomock/mongomock
 mypy==0.902             # https://github.com/python/mypy
 pre-commit==2.13.0      # https://github.com/pre-commit/pre-commit
 pylint==2.8.3           # https://github.com/PyCQA/pylint
@@ -14,4 +15,3 @@ pytest-cov==2.12.1      # https://github.com/pytest-dev/pytest-cov
 safety==1.10.3          # https://github.com/pyupio/safety
 
 ## Sub dependencies installed
-

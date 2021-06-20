@@ -1,14 +1,17 @@
-from setuptools import find_packages
-from setuptools import setup
+"""
+maggport setup file
+"""
+from setuptools import find_packages, setup
 
 # Only install package dependencies in install_requires
 setup(
     name='maggport',
     version='1.0.0',
     description='A mongodb aggregate export tool',
+    long_description='A mongodb aggregate export tool',
     entry_points={
         'console_scripts': [
-            'maggport = src.main:entry_point'
+            'maggport = maggport.maggport:maggport'
         ]
     },
     url='https://github.com/ccavales3/maggport',

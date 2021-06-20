@@ -1,8 +1,33 @@
-## Local Development
+# Maintainers
 
-### Prerequisites
+Contains steps on how to publish to PyPI
 
-Utilize [pip-tools](https://github.com/jazzband/pip-tools) to generate development and production dependencies.
+## Prerequisite
+
 ```sh
-pip install pip-tools
+pip install twine
+```
+
+## Build and test package
+
+```sh
+python setup.py sdist bdist_wheel
+```
+
+Validate locally built package
+
+```sh
+twine check dist/*
+```
+
+## Publish to TestPyPI for testing
+
+```sh
+twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+```
+
+Install published package to TestPyPI
+
+```sh
+pip install -i https://test.pypi.org/simple/ maggport==1.0.0
 ```
