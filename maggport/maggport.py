@@ -11,7 +11,6 @@ from typing import Any
 import click
 import pandas
 import pymongo
-# test
 
 from maggport import logger
 

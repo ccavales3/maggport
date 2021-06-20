@@ -24,7 +24,7 @@ make install-dev
 
 Setup the git hook scripts:
 
-```
+```sh
 pre-commit install
 pre-commit install --hook-type pre-push
 ```
@@ -50,3 +50,11 @@ Test by calling the module.
 ```sh
 maggport --host <host> --port <port> --db <db> --collection <collection> --pipeline <pipeline>
 ```
+
+## Pull Request Process
+
+1. Run `make compile-all` if there is any new dependencies added.
+1. `make quality` and `make test` should both pass before filing a PR.
+1. Increase the version numbers in setup.py. The versioning scheme we use is [SemVer](http://semver.org/).
+1. For every changes or new feature added, make sure that it's covered by test(see package json for test framework used or use other components as examples.
+1. Update the README.md with details of changes to the interface.

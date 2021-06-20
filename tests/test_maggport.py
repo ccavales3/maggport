@@ -8,11 +8,11 @@ from click.testing import CliRunner
 
 from maggport import maggport
 
-
 PIPELINE = ('['
             '{"$match": { "_id" : { "$ne" : "null"}}},'
             '{"$limit": 10}'
             ']')
+
 
 def mock_get(pipeline, allowDiskUse):  # pylint: disable=W0613,C0103
     """

@@ -7,6 +7,7 @@ Example:
 import logging
 from typing import Any
 
+
 def get_logger(class_name: str) -> Any:
     """
     Creates logger object for package modules

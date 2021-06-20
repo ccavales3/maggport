@@ -31,3 +31,9 @@ Install published package to TestPyPI
 ```sh
 pip install -i https://test.pypi.org/simple/ maggport
 ```
+
+## Publish to PyPI
+
+```sh
+twine upload dist/*
+```

@@ -13,5 +13,6 @@ pylint==2.8.3           # https://github.com/PyCQA/pylint
 pytest==6.2.4           # https://docs.pytest.org/en/latest/
 pytest-cov==2.12.1      # https://github.com/pytest-dev/pytest-cov
 safety==1.10.3          # https://github.com/pyupio/safety
+yamllint==1.26.1        # https://github.com/adrienverge/yamllint
 
 ## Sub dependencies installed

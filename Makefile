@@ -66,11 +66,11 @@ quality:
 	@echo "${BLUE}Running safety dependency checker${NC}"
 	@safety check -r requirements.txt -r dev-requirements.txt
 	@echo "${BLUE}Running flake8 against source and test files${NC}"
-	@flake8 src/ tests/
+	@flake8 maggport/ tests/
 	@echo "${BLUE}Running pylint against source and test files${NC}"
-	@pylint src/ tests/
+	@pylint maggport/ tests/
 	@echo "${BLUE}Running mypy against source and test files${NC}"
-	@mypy --config-file setup.cfg src/ tests/
+	@mypy --config-file setup.cfg maggport/ tests/
 	@echo "${BLUE}Running yamllint against source and test files${NC}"
 	@yamllint .
 
@@ -85,11 +85,11 @@ quality-diff:
 	@echo "${BLUE}Running safety dependency checker${NC}"
 	@-safety check -r requirements.txt -r dev-requirements.txt
 	@echo "${BLUE}Running flake8 against source and test files${NC}"
-	@-flake8 src/ tests/
+	@-flake8 maggport/ tests/
 	@echo "${BLUE}Running pylint against source and test files${NC}"
-	@-pylint src/ tests/
+	@-pylint maggport/ tests/
 	@echo "${BLUE}Running mypy against source and test files${NC}"
-	@-mypy --config-file setup.cfg src/ tests/
+	@-mypy --config-file setup.cfg maggport/ tests/
 	@echo "${BLUE}Running yamllint against source and test files${NC}"
 	@-yamllint .
 
