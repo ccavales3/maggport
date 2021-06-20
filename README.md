@@ -20,6 +20,17 @@ pip install maggport
 
 ## Usage
 
+| Arguments             | Description                       |
+| --------------------- | --------------------------------- |
+| -c/--collection       | Collection of database            |
+| -d/--db               | Database to connect               |
+| -h/--host             | Hostname of mongodb instance      |
+| --no-allow-disk-use   | Don\'t allow disk use             |
+| -o/--out              | Output file                       |
+| -p/--port             | Port of mongodb instance          |
+| -q/--pipeline         | Pipeline to run                   |
+| -f/--pipeline-path    | Path of pipeline if saved in file |
+
 **host**: sample_host  
 **port**: 8080  
 **db**: food  
