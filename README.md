@@ -76,7 +76,7 @@ maggport --host sample_host --port 8080 --db food --collection fruits --pipeline
 [
     {
         "_id":"apple",
-        "count": 2
+        "count": 3
     }
 ]
 ```
@@ -104,7 +104,7 @@ maggport --host sample_host --port 8080 --db food --collection fruits --pipeline
 [
     {
         "_id":"apple",
-        "count": 2
+        "count": 3
     }
 ]
 ```
