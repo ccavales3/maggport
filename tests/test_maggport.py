@@ -2,10 +2,8 @@
 This file unittests maggport.py file
 """
 import pathlib
-import pytest
 from unittest import mock
 
-import click
 from click.testing import CliRunner
 
 from maggport import maggport
@@ -18,7 +16,7 @@ PIPELINE = ('['
 
 def mock_get(pipeline, allowDiskUse):  # pylint: disable=W0613,C0103
     """
-    mock_get
+    Return mocked mongodb docs.
     """
     return [
         {'_id': 'dummy_id_A', 'value': 'dummy_value_A'},
@@ -29,7 +27,7 @@ def mock_get(pipeline, allowDiskUse):  # pylint: disable=W0613,C0103
 @mock.patch('pymongo.MongoClient')
 def test_connect_to_db(mock_db):
     """
-    test_connect_to_db
+    Should call create new mongodb instance with mocked data.
     """
     runner = CliRunner()
 
@@ -49,7 +47,8 @@ def test_connect_to_db(mock_db):
 @mock.patch('pymongo.collection.Collection.aggregate', side_effect=mock_get)
 def test_print_results(mock_agg, mock_to_csv):
     """
-    test_print_results
+    Should call aggregate pipeline.
+    Should output result to console.
     """
     runner = CliRunner()
 
@@ -70,7 +69,7 @@ def test_print_results(mock_agg, mock_to_csv):
 @mock.patch('pymongo.collection.Collection.aggregate', side_effect=mock_get)
 def test_export_results_to_csv(mock_agg, mock_to_csv):
     """
-    test_print_results
+    Should call pandas export to csv with pipeline passed as parameter.
     """
     runner = CliRunner()
 
@@ -92,7 +91,7 @@ def test_export_results_to_csv(mock_agg, mock_to_csv):
 @mock.patch('pymongo.collection.Collection.aggregate', side_effect=mock_get)
 def test_pass_pipeline_as_file(mock_agg, mock_to_csv):
     """
-    test_pass_pipeline_as_file
+    Should output result to console with pipeline passed as file.
     """
     runner = CliRunner()
 
@@ -111,7 +110,7 @@ def test_pass_pipeline_as_file(mock_agg, mock_to_csv):
 
 def test_no_pipeline_error():
     """
-    test_pass_pipeline_as_file
+    Should return error if pipeline not passed.
     """
     runner = CliRunner()
 
@@ -129,11 +128,10 @@ def test_no_pipeline_error():
 
 def test_bad_pipeline_param_error():
     """
-    test_pass_pipeline_as_file
+    Should return error if pipeline parameter is not valid.
     """
     runner = CliRunner()
 
-    # with pytest.raises(AttributeError) as excinfo:
     result = runner.invoke(maggport.maggport, [
         '--host', 'test_host',
         '--collection', 'test_collection',

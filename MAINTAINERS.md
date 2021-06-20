@@ -5,7 +5,7 @@ Contains steps on how to publish to PyPI
 ## Prerequisite
 
 ```sh
-pip install twine
+pip install --upgrade twine
 ```
 
 ## Build and test package
@@ -23,11 +23,11 @@ twine check dist/*
 ## Publish to TestPyPI for testing
 
 ```sh
-twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+twine upload --repository testpypi dist/*
 ```
 
 Install published package to TestPyPI
 
 ```sh
-pip install -i https://test.pypi.org/simple/ maggport==1.0.0
+pip install -i https://test.pypi.org/simple/ maggport
 ```

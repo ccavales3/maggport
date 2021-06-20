@@ -6,7 +6,7 @@ from setuptools import find_packages, setup
 # Only install package dependencies in install_requires
 setup(
     name='maggport',
-    version='1.0.0',
+    version='0.0.1',
     description='A mongodb aggregate export tool',
     long_description='A mongodb aggregate export tool',
     entry_points={
