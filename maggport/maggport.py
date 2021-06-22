@@ -5,6 +5,8 @@ Example:
     maggport --host <host> --port <port> --db <db> --collection <collection> --pipeline_path <pipeline_path> --out <out>
 """
 import ast
+import json
+import pathlib
 import time
 from typing import Any
 
@@ -15,6 +17,7 @@ import pymongo
 from maggport import logger
 
 LOGGER = logger.get_logger('maggport.maggport')
+SUPPORTED_EXT = ['.csv', '.json']
 
 
 class PythonLiteralOption(click.Option):
@@ -27,6 +30,24 @@ class PythonLiteralOption(click.Option):
                 return ast.literal_eval(value)
         except click.BadParameter as error:
             raise click.BadParameter(value) from error  # pragma: no cover
+
+
+def _validate_extension(out: str) -> str:
+    """
+    Validates file extension
+
+    Args:
+        out (str): Output file
+
+    Return:
+        (str): File extension
+    """
+    file_extension = pathlib.Path(out).suffix
+
+    if file_extension not in SUPPORTED_EXT:
+        raise AttributeError('File extension not supported')
+
+    return file_extension
 
 
 def _validate_pipeline(pipeline: str, pipeline_path: str) -> str:
@@ -52,6 +73,25 @@ def _validate_pipeline(pipeline: str, pipeline_path: str) -> str:
     raise AttributeError('Expects value in either pipeline or pipeline_path. None given')
 
 
+def _export_csv(docs: list, out: str) -> None:
+    """
+    Export file to csv
+
+    Args:
+        docs (list): Queried docs from mongodb
+        out (str): Output file
+    """
+    # create empty DataFrame to store docs
+    df_doc = pandas.DataFrame(columns=[])
+
+    # prepare result to be exported
+    for doc in docs:
+        series_obj = pandas.Series(doc)
+        df_doc = df_doc.append(series_obj, ignore_index=True)
+
+    df_doc.to_csv(out, sep=',', index=False)
+
+
 @click.command()
 @click.option('-c', '--collection', type=str, required=True, help='Collection of database')
 @click.option('-d', '--db', type=str, required=True, help='Database to connect')
@@ -75,6 +115,10 @@ def maggport(  # pylint: disable=R0913,R0914,C0103
     Exports aggregate pipeline results to csv or JSON file
     """
     agg_query = _validate_pipeline(pipeline, pipeline_path)
+    file_extension = None
+
+    if out:
+        file_extension = _validate_extension(out)
 
     LOGGER.info('Connecting to mongodb')
     client = pymongo.MongoClient(host, port)
@@ -88,18 +132,16 @@ def maggport(  # pylint: disable=R0913,R0914,C0103
 
     LOGGER.info('Exporting %s docs', len(docs_list))
 
-    # create empty DataFrame to store docs
-    df_doc = pandas.DataFrame(columns=[])
-
-    # prepare result to be exported
-    for doc in docs_list:
-        series_obj = pandas.Series(doc)
-        df_doc = df_doc.append(series_obj, ignore_index=True)
-
     if out:
-        df_doc.to_csv(out, sep=',', index=False)
+        if file_extension == '.csv':
+            _export_csv(docs_list, out)
+        elif file_extension == '.json':
+            with open(out, 'w') as outfile:
+                json.dump(docs_list, outfile, indent=2)
     else:
-        csv_export = df_doc.to_csv(sep=',', index=False)
-        print('\nCSV data: \n', csv_export)
+        docs_encode = json.dumps(docs_list)
+        docs_decode = json.loads(docs_encode)
+        json_formatted_str = json.dumps(docs_decode, indent=2)
+        print(json_formatted_str)
 
     LOGGER.info('Query successfully ran in %s', time.time() - start_time)
