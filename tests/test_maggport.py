@@ -87,7 +87,7 @@ def test_export_results_to_csv(mock_agg, mock_to_csv):
 
     assert result.exit_code == 0
     mock_agg.assert_called_with([{'$match': {'_id': {'$ne': 'null'}}}, {'$limit': 10}], allowDiskUse=True)
-    mock_to_csv.assert_called_with('dummy_file.csv', sep=',', index=False)
+    mock_to_csv.assert_called_with('dummy_file.csv', sep=',', index=False, header=False)
 
 
 @mock.patch('json.dump')
@@ -112,6 +112,29 @@ def test_export_results_to_json(mock_agg, mock_open_file, mock_json_dump):  # py
     assert result.exit_code == 0
     mock_open_file.assert_called_with('dummy_file.json', 'w')
     mock_agg.assert_called_with([{'$match': {'_id': {'$ne': 'null'}}}, {'$limit': 10}], allowDiskUse=True)
+
+
+@mock.patch('pandas.DataFrame.to_csv')
+@mock.patch('pymongo.collection.Collection.aggregate', side_effect=mock_get)
+def test_export_results_to_txt(mock_agg, mock_to_txt):
+    """
+    Should call pandas export to csv with pipeline passed as parameter.
+    """
+    # mock_open = mock.mock_open()
+    runner = CliRunner()
+
+    result = runner.invoke(maggport.maggport, [
+        '--host', 'test_host',
+        '--collection', 'test_collection',
+        '--db', 'test_db',
+        '--port', '8080',
+        '--pipeline', PIPELINE,
+        '--out', 'dummy_file.txt'
+    ])
+
+    assert result.exit_code == 0
+    mock_agg.assert_called_with([{'$match': {'_id': {'$ne': 'null'}}}, {'$limit': 10}], allowDiskUse=True)
+    mock_to_txt.assert_called_with('dummy_file.txt', index=False, header=False)
 
 
 @mock.patch('json.loads')

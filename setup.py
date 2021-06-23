@@ -12,7 +12,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 # Only install package dependencies in install_requires
 setup(
     name='maggport',
-    version='1.0.3',
+    version='1.0.4',
     description='A mongodb aggregate export tool',
     long_description=long_description,
     long_description_content_type='text/markdown',
